@@ -13,15 +13,23 @@
   <script>
     var peer = new Peer();
 
-    var conn = peer.connect('another-peers-id');
 
-    peer.on('connection', function(conn) { 
-      conn.on('data', function(data) {
-        console.log('Received', data);
+    peer.on('connection', (conn) => {
+      console.log('vo day 2')
+
+      conn.on('data', (data) => {
+        console.log('vo day 12', data)
       });
+    });
+    
+    var conn = peer.connect('test-123');
 
-      debugger
-      conn.send('Hello')
+    conn.on('open', function(conn) { 
+      console.log('vo day 1')
+
+      setTimeout(() => {
+        conn.send('hi')
+      }, 5000)
     });
 
   </script>

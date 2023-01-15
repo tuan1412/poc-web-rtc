@@ -12,13 +12,11 @@
   <script>
     var peer = new Peer();
 
-    var conn = peer.connect('another-peers-id');
-
+    const conn = peer.connect("another-peers-id");
     peer.on('connection', function(conn) { 
-      conn.on('data', function(data) {
-        console.log('Received', data);
+      conn.on("open", () => {
+        conn.send("hello!");
       });
-
     });
   </script>
 </body>
