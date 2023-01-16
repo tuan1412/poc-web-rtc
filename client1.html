@@ -11,27 +11,24 @@
 <body>
   
   <script>
-    var peer = new Peer();
-
-
-    peer.on('connection', (conn) => {
-      console.log('vo day 2')
-
-      conn.on('data', (data) => {
-        console.log('vo day 12', data)
-      });
-    });
-    
-    var conn = peer.connect('test-123');
-
-    conn.on('open', function(conn) { 
-      console.log('vo day 1')
-
-      setTimeout(() => {
-        conn.send('hi')
-      }, 5000)
-    });
-
+  var peer = new Peer();
+	peer.on('open', function(id) {
+		console.log('My peer ID is: ' + id);
+	});
+	
+	function connect(peerID){
+		var conn = peer.connect(peerID);
+		conn.on('open', function() {
+			// Receive messages
+			conn.on('data', function(data) {
+				console.log('Received', data);
+			});
+			
+			// Send messages
+			conn.send('Hello from phone!');
+		});		
+  }
+  connect('test-123')
   </script>
 </body>
 </html>
